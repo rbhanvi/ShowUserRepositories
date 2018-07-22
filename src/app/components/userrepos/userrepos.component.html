@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+	      </button>
+				<a href="#" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Search User Repositories --By Bhanvi Rohilla</a>
+			</div>
+		</div>
+	</nav>
+<form action="" class="search-form">
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="Search git user's repos with username" [(ngModel)]="username" name="username" (keyup)="findProfile()">
+	</div>
+</form>
+<div *ngIf="repos">
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Repos of user: {{username}}</h3>
+				</div>
+					<div class="panel-body" *ngFor="let repo of repos">
+						<p class="clearfix">
+							Project Name: {{repo.name}} <a href="{{repo.html_url}}" target="_blank" class="btn btn-sm btn-success pull-right">View project on github</a>
+							</p>
+							<p *ngIf="repo.description">Description: {{repo.description}}</p>
+						<div class="row">
+						<div class="col-sm-3">	
+							<ul class="list-group">
+									<li class="list-group-item" *ngIf="repo.size">Size: {{repo.size}}kb</li>
+									<li class="list-group-item" *ngIf="repo.created_at">Created on: {{repo.created_at | date}}</li>
+									<li class="list-group-item" *ngIf="repo.updated_at">Updated on: {{repo.updated_at | date}}</li>
+								</ul>  
+							
+							</div>
+						</div>
+						
+								<hr>
+
+					</div>
+				</div>
+		</div>	
+	
