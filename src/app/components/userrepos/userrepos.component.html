@@ -13,17 +13,16 @@
 	</div>
 </form>
 <div *ngIf="repos">
-	
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Repos of user: {{username}}</h3>
+			<h3 class="panel-title">Showing repositories of user: {{username}} <a class="clearfix" href="{{repos[0].owner.html_url}}" target="_blank" class="btn btn-sm btn-success pull-right">View User on Github</a></h3>
 				</div>
 					<div class="panel-body" *ngFor="let repo of repos">
 						<p class="clearfix">
-							Project Name: {{repo.name}} <a href="{{repo.html_url}}" target="_blank" class="btn btn-sm btn-success pull-right">View project on github</a>
+							<strong>Project Name: {{repo.name}} </strong><a href="{{repo.html_url}}" target="_blank" class="btn btn-sm btn-warning pull-right">View Project on Github</a>
 							</p>
 							<p *ngIf="repo.description">Description: {{repo.description}}</p>
-						<div class="row">
+					<div class="row">
 						<div class="col-sm-3">	
 							<ul class="list-group">
 									<li class="list-group-item" *ngIf="repo.size">Size: {{repo.size}}kb</li>
@@ -31,11 +30,18 @@
 									<li class="list-group-item" *ngIf="repo.updated_at">Updated on: {{repo.updated_at | date}}</li>
 								</ul>  
 							
-							</div>
 						</div>
+					<div class="col-sm-5">
+						<p> <span class="label label-info" *ngIf="repo.language">Language: {{repo.language}}</span> </p>
+						<p>
+							<span class="label label-default" *ngIf="repo.forks_count">Forks: {{repo.forks_count}} </span>
+							<span class="label label-success" *ngIf="repo.watchers_count">Watchers: {{repo.watchers_count}}</span>
+						</p>
 						
-								<hr>
+					</div>
 
+						</div>
+						<hr>
 					</div>
 				</div>
 		</div>	
