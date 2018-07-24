@@ -1,48 +1,60 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
-	      </button>
-				<a href="#" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Search User Repositories --By Bhanvi Rohilla</a>
+		<a href="#" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Show User Repositories </a>
 			</div>
-		</div>
-	</nav>
+	</div>
+</nav>
+
 <form action="" class="search-form">
 	<div class="form-group">
 		<input type="text" class="form-control" placeholder="Search git user's repos with username" [(ngModel)]="username" name="username" (keyup)="findProfile()">
 	</div>
 </form>
-<div *ngIf="repos">
-	<div class="panel panel-default">
+<div *ngIf="errorMsg">
+	<h2>USER NOT FOUND!!</h2>
+</div>
+
+<div *ngIf="repos && repos.length > 0">
+	<div class="panel panel-default ">
 		<div class="panel-heading">
-			<h3 class="panel-title">Showing repositories of user: {{username}} <a class="clearfix" href="{{repos[0].owner.html_url}}" target="_blank" class="btn btn-sm btn-success pull-right">View User on Github</a></h3>
-				</div>
-					<div class="panel-body" *ngFor="let repo of repos">
-						<p class="clearfix">
-							<strong>Project Name: {{repo.name}} </strong><a href="{{repo.html_url}}" target="_blank" class="btn btn-sm btn-warning pull-right">View Project on Github</a>
-							</p>
-							<p *ngIf="repo.description">Description: {{repo.description}}</p>
+			<h3 class="panel-title"><strong>Showing repositories of user: {{username}}</strong>
+			 	<p> <a  class="clearfix " href="{{repos[0].owner.html_url}}" target="_blank" class="btn btn-sm btn-success ">View User on Github</a> </p>
+			 </h3>
+			
+		</div>
+			<div class="panel-body" *ngFor="let repo of repos">
+				<p class="clearfix">
+					<strong>Project Name: {{repo.name}} </strong>
+					
+				</p>
+				<p *ngIf="repo.description">Description: {{repo.description}}</p>
 					<div class="row">
 						<div class="col-sm-3">	
 							<ul class="list-group">
 									<li class="list-group-item" *ngIf="repo.size">Size: {{repo.size}}kb</li>
 									<li class="list-group-item" *ngIf="repo.created_at">Created on: {{repo.created_at | date}}</li>
 									<li class="list-group-item" *ngIf="repo.updated_at">Updated on: {{repo.updated_at | date}}</li>
-								</ul>  
-							
+							</ul>  
 						</div>
 					<div class="col-sm-5">
 						<p> <span class="label label-info" *ngIf="repo.language">Language: {{repo.language}}</span> </p>
 						<p>
-							<span class="label label-default" *ngIf="repo.forks_count">Forks: {{repo.forks_count}} </span>
-							<span class="label label-success" *ngIf="repo.watchers_count">Watchers: {{repo.watchers_count}}</span>
+							<span class="label label-success" *ngIf="repo.forks_count">Forks: {{repo.forks_count}} </span>
+							<span class="label label-danger" *ngIf="repo.watchers_count">Watchers: {{repo.watchers_count}}</span>
 						</p>
-						
 					</div>
+					<div class="col-md-4 col-lg-1">
+      						<a href="{{repo.html_url}}" target="_blank" class="btn btn-sm btn-warning ">View Project on Github</a>
+    				</div>
 
-						</div>
-						<hr>
 					</div>
+					<hr>
 				</div>
-		</div>	
-	
+			</div>
+</div>
+<div *ngIf="username && !errorMsg"	>
+<div *ngIf="!repos || repos.length === 0">
+	<h3>User has no Repositories!! </h3>
+</div>
+</div>	
