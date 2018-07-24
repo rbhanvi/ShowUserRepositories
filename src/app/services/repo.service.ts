@@ -3,7 +3,7 @@ import {Http, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 import { catchError } from 'rxjs/operators/catchError';
-import { throwError } from 'rxjs/operators/throwError';
+import {throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class RepoService {
   errorHandler(error: HttpErrorResponse)
   {
       
-      return Observable.throwError("User not Found!!!")
+      return throwError("User not Found!!!")
   }
 
   updateProfile(username:string){

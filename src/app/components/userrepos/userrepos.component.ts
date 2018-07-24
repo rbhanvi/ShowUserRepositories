@@ -16,20 +16,19 @@ export class UserreposComponent implements OnInit {
   }
 
   findProfile(){
-    if(this.username!=""){
+    if(this.username!=''){
     this.reposervice.updateProfile(this.username);
     this.reposervice.getProfileRepos().subscribe(repos => {
-      this.errorMsg = "";
+      this.errorMsg='';
       this.repos = repos;
     }, error => { this.errorMsg = error
-      this.repos = "";
+      this.repos=[];
     }
     )}
     else{
-    this.repos="";
+    this.repos=[];
     }
   }
-
   ngOnInit() {
   }
 
